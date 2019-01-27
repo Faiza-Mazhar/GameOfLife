@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.8869346733668342" maxHeight="-Infinity"
+           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0"
+           prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="sample.Controller">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <children>
+                <Pane fx:id="outputPane" layoutX="178.0" layoutY="66.0" prefHeight="349.0" prefWidth="598.0"
+                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="0.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </Pane>
+            </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+            <children>
+                <HBox layoutX="60.0" layoutY="-36.0" prefHeight="41.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <ToggleButton mnemonicParsing="false" onAction="#populateGame" text="Play/Pause"/>
+                        <Button mnemonicParsing="false" onMouseClicked="#populateGame" text="Populate"/>
+                        <ChoiceBox prefWidth="150.0"/>
+                        <Button mnemonicParsing="false" onMouseClicked="#clearBoard" text="Clear"/>
+                        <Label fx:id="iterationNumberLabel" text="Iteration #"/>
+                        <Label fx:id="iterationNumber" layoutX="385.0" layoutY="10.0" text="iteration number"/>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </items>
+</SplitPane>
