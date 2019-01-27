@@ -23,7 +23,7 @@
                 <HBox layoutX="60.0" layoutY="-36.0" prefHeight="41.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0"
                       AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <ToggleButton mnemonicParsing="false" onAction="#populateGame" text="Play/Pause"/>
+                        <Button mnemonicParsing="false" onMouseClicked="#playGame" text="Play"/>
                         <Button mnemonicParsing="false" onMouseClicked="#populateGame" text="Populate"/>
                         <ChoiceBox prefWidth="150.0"/>
                         <Button mnemonicParsing="false" onMouseClicked="#clearBoard" text="Clear"/>

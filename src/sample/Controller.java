@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,8 +32,10 @@ public class Controller {
      *
      */
 
-    private int outputCellSize = 5; //every output seed size is 5X5
+    private int outputCellSize = 10; //every output seed size is 5X5
     private ArrayList<Position> currentGameState;
+
+    private GameOfLife gameOfLife;
 
     /*********************************************************************************
      This method with Populate game for the first time
@@ -40,16 +43,20 @@ public class Controller {
     @FXML
     public void populateGame() {
 
-        //every
-
+        clearBoard();
 
         //get width and height of current output window
-        int maxWidthX = (int) outputPane.getBoundsInParent().getWidth() / 5;
-        int maxHeightY = (int) outputPane.getBoundsInParent().getHeight() / 5;
+        int maxWidthX = (int) outputPane.getBoundsInParent().getWidth() / outputCellSize;
+        int maxHeightY = (int) outputPane.getBoundsInParent().getHeight() / outputCellSize;
+
         System.out.println(maxWidthX + " , " + maxHeightY);
         //
         currentGameState = this.getPositionList(maxWidthX, maxHeightY);
         this.displayOutput();
+
+        //initiate game with Position on displayPane and width and height of pane
+        gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
+
     }
 
     /*
@@ -65,13 +72,53 @@ public class Controller {
             Rectangle rectangle = new Rectangle(
                     position.getX() * outputCellSize,
                     position.getY() * outputCellSize,
-                    5, 5);
+                    outputCellSize, outputCellSize);
             rectangle.setStroke(Color.BEIGE);
             rectangle.setFill(Color.web("#AA3939"));
             outputPane.getChildren().add(rectangle);
 
         });
     }
+
+    public void playCurrentGameState() {
+
+        clearBoard();
+        currentGameState = gameOfLife.nextStateOfGame();
+        displayOutput();
+
+    }
+
+    @FXML
+    public void playGame() {
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Runnable updater = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        playCurrentGameState();
+                    }
+                };
+
+                while (true) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                    }
+
+                    // UI update is run on the Application thread
+                    Platform.runLater(updater);
+                }
+            }
+
+        });
+        // don't let thread prevent JVM shutdown
+        thread.setDaemon(true);
+        thread.start();
+    }
+
 
     @FXML
     public void clearBoard() {

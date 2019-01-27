@@ -129,7 +129,7 @@ public class GameOfLife {
             numberOfNeighbours[0] = countNeighbour(position);
             if (numberOfNeighbours[0] == 2 || numberOfNeighbours[0] == 3) {
                 nextStateAliveSeedList.add(position);
-                System.out.println("Seed alive at: " + position.getX() + " , " + position.getY());
+                //  System.out.println("Seed alive at: " + position.getX() + " , " + position.getY());
             }
         });
     }
@@ -159,8 +159,8 @@ public class GameOfLife {
 
                     if (neighbourCount == 3 && (!isCellAlive(nextStateAliveSeedList, isCellAlive))) {
                         nextStateAliveSeedList.add(isCellAlive);
-                        System.out.println("/***************************/");
-                        System.out.println("Cell created at: " + isCellAlive.getX() + " , " + isCellAlive.getY());
+                        //  System.out.println("/***************************/");
+                        // System.out.println("Cell created at: " + isCellAlive.getX() + " , " + isCellAlive.getY());
                     }
                 }
             }
@@ -169,10 +169,18 @@ public class GameOfLife {
     }
 
     /********************************************************************/
-    protected void nextState() {
+    protected ArrayList<Position> nextStateOfGame() {
+
+        //check survival of seeds and creation of new lifs
+        this.survivalOfSeed();
+        this.creationOfLIfe();
+
+        //prepare game for next state
         this.aliveSeedList.clear();
         this.aliveSeedList.addAll(this.nextStateAliveSeedList);
         this.nextStateAliveSeedList.clear();
+
+        return aliveSeedList;
     }
 
 
