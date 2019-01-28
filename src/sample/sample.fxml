@@ -10,8 +10,8 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
                 <Pane fx:id="outputPane" layoutX="178.0" layoutY="66.0" prefHeight="349.0" prefWidth="598.0"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                      AnchorPane.topAnchor="0.0">
+                      style="-fx-background-color: #FFC9AA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
                     </padding>
@@ -20,15 +20,17 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
-                <HBox layoutX="60.0" layoutY="-36.0" prefHeight="41.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0"
-                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox layoutX="60.0" layoutY="-36.0" prefHeight="41.0" prefWidth="598.0"
+                      style="-fx-background-color: #D7946E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Button mnemonicParsing="false" onMouseClicked="#playGame" text="Play"/>
                         <Button mnemonicParsing="false" onMouseClicked="#populateGame" text="Populate"/>
                         <ChoiceBox prefWidth="150.0"/>
                         <Button mnemonicParsing="false" onMouseClicked="#clearBoard" text="Clear"/>
+                        <Label fx:id="iterationNumber" layoutX="385.0" layoutY="10.0" text="Iteration #"/>
                         <Label fx:id="iterationNumberLabel" text="Iteration #"/>
-                        <Label fx:id="iterationNumber" layoutX="385.0" layoutY="10.0" text="iteration number"/>
+                        <ToggleButton mnemonicParsing="false" text="Play/Pause"/>
                     </children>
                 </HBox>
             </children>

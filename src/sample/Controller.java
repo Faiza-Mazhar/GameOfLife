@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Controller {
 
@@ -36,6 +37,8 @@ public class Controller {
     private ArrayList<Position> currentGameState;
 
     private GameOfLife gameOfLife;
+    private final AtomicBoolean running = new AtomicBoolean(false);
+    private int generationCounter = 0;
 
     /*********************************************************************************
      This method with Populate game for the first time
@@ -66,7 +69,7 @@ public class Controller {
      * make a rectangle and add to the display pane
      * */
     @FXML
-    public void displayOutput() {
+    private void displayOutput() {
         currentGameState.forEach((position) -> {
 
             Rectangle rectangle = new Rectangle(
@@ -80,11 +83,14 @@ public class Controller {
         });
     }
 
-    public void playCurrentGameState() {
+    private void playCurrentGameState() {
 
         clearBoard();
         currentGameState = gameOfLife.nextStateOfGame();
         displayOutput();
+        generationCounter++;
+        iterationNumberLabel.setText(String.valueOf(generationCounter));
+        running.set(true);
 
     }
 
@@ -94,6 +100,7 @@ public class Controller {
 
             @Override
             public void run() {
+                running.set(true);
                 Runnable updater = new Runnable() {
 
                     @Override
@@ -102,10 +109,11 @@ public class Controller {
                     }
                 };
 
-                while (true) {
+                while (running.get()) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException ex) {
+                        System.out.println("expection arised here");
                     }
 
                     // UI update is run on the Application thread
@@ -122,6 +130,7 @@ public class Controller {
 
     @FXML
     public void clearBoard() {
+        running.set(false);
         this.outputPane.getChildren().clear();
     }
 
