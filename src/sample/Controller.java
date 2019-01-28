@@ -2,9 +2,7 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,26 +16,18 @@ public class Controller {
     Pane outputPane = new Pane();
 
     @FXML
-    Button populateGame = new Button();
-
-    @FXML
-    ToggleButton playGame = new ToggleButton();
-
-    @FXML
-    Button clearOutput = new Button();
-
-    @FXML
     Label iterationNumberLabel = new Label();
 
+
+    private final AtomicBoolean runGame = new AtomicBoolean(false);
     /************************************************************
      *
      */
 
-    private int outputCellSize = 10; //every output seed size is 5X5
-    private ArrayList<Position> currentGameState;
+    private int outputCellSize = 5; //every output seed size is 5X5
 
     private GameOfLife gameOfLife;
-    private final AtomicBoolean running = new AtomicBoolean(false);
+    private ArrayList<Position> currentGameState = new ArrayList<>();
     private int generationCounter = 0;
 
     /*********************************************************************************
@@ -45,18 +35,17 @@ public class Controller {
      **********************************************************************************/
     @FXML
     public void populateGame() {
-
-        clearBoard();
-
+        System.out.println(this.currentGameState.size());
+        stopGame();
+        resetGenerationCounter();
         //get width and height of current output window
         int maxWidthX = (int) outputPane.getBoundsInParent().getWidth() / outputCellSize;
         int maxHeightY = (int) outputPane.getBoundsInParent().getHeight() / outputCellSize;
 
-        System.out.println(maxWidthX + " , " + maxHeightY);
-        //
+        //call the function to populate game with a list random positions
+        currentGameState.clear();
         currentGameState = this.getPositionList(maxWidthX, maxHeightY);
         this.displayOutput();
-
         //initiate game with Position on displayPane and width and height of pane
         gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
 
@@ -84,56 +73,97 @@ public class Controller {
     }
 
     private void playCurrentGameState() {
-
+        generationCounter++;
+        iterationNumberLabel.setText(String.valueOf(generationCounter));
         clearBoard();
         currentGameState = gameOfLife.nextStateOfGame();
         displayOutput();
-        generationCounter++;
-        iterationNumberLabel.setText(String.valueOf(generationCounter));
-        running.set(true);
-
+        runGame.set(true);
     }
 
     @FXML
     public void playGame() {
-        Thread thread = new Thread(new Runnable() {
+        //if game not already populated, then populate it and play game
+        if (currentGameState.size() == 0) {
+            this.populateGame();
+        }
 
+        //create a new thread
+        //keep on playing the game until runGame == true
+        //it someone tries to pause/clear board
+        //game will stop as it will set runGame.set(false)
+
+        Runnable task = new Runnable() {
             @Override
             public void run() {
-                running.set(true);
-                Runnable updater = new Runnable() {
+                runGame.set(true);
 
+                Runnable screenUpdater = new Runnable() {
                     @Override
                     public void run() {
                         playCurrentGameState();
                     }
-                };
+                };//screenUpdater
 
-                while (running.get()) {
+
+                while (runGame.get()) {
                     try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                        System.out.println("expection arised here");
-                    }
+                        Thread.sleep(120);
 
-                    // UI update is run on the Application thread
-                    Platform.runLater(updater);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Exception: " + ex);
+                    }
+                    Platform.runLater(screenUpdater);
                 }
             }
+        };
 
-        });
-        // don't let thread prevent JVM shutdown
-        thread.setDaemon(true);
-        thread.start();
+        Thread gameThread = new Thread(task);
+
+        gameThread.setDaemon(true);
+        gameThread.start();
+
     }
 
+    /*******************************************************************************
+     * If game is play, it will
+     *
+     */
 
     @FXML
-    public void clearBoard() {
-        running.set(false);
+    public void pauseGame() {
+
+        if (runGame.get()) {
+            runGame.set(false);
+            stopGame();
+        } else {
+            stopGame();
+            resetGenerationCounter();
+        }
+    }//
+
+
+    private void clearBoard() {
         this.outputPane.getChildren().clear();
     }
 
+    private void resetGenerationCounter() {
+        this.iterationNumberLabel.setText("0");
+        this.generationCounter = 0;
+    }
+
+    private void stopGame() {
+        clearBoard();
+        this.currentGameState = new ArrayList<>();
+
+    }
+
+    /*Generate a a list of Position with random number,
+     *xMax: indicates the upper limit of random number of position in x-axis i.e. 0-xMax
+     *yMax: indicates the upper limit of random number of position in y-axis i.e. 0-yMax
+     *
+     *
+     */
 
     private ArrayList<Position> getPositionList(int xMax, int yMax) {
 
@@ -141,5 +171,7 @@ public class Controller {
         return generatePositions.getPositionArrayList();
 
     }
+    /***************************************************************************/
+
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.8869346733668342" maxHeight="-Infinity"
@@ -20,19 +20,58 @@
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
-                <HBox layoutX="60.0" layoutY="-36.0" prefHeight="41.0" prefWidth="598.0"
-                      style="-fx-background-color: #D7946E;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <GridPane layoutX="-6.0" layoutY="-1.0" prefHeight="41.0" prefWidth="598.0"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS"/>
+                    </rowConstraints>
                     <children>
-                        <Button mnemonicParsing="false" onMouseClicked="#playGame" text="Play"/>
-                        <Button mnemonicParsing="false" onMouseClicked="#populateGame" text="Populate"/>
-                        <ChoiceBox prefWidth="150.0"/>
-                        <Button mnemonicParsing="false" onMouseClicked="#clearBoard" text="Clear"/>
-                        <Label fx:id="iterationNumber" layoutX="385.0" layoutY="10.0" text="Iteration #"/>
-                        <Label fx:id="iterationNumberLabel" text="Iteration #"/>
-                        <ToggleButton mnemonicParsing="false" text="Play/Pause"/>
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playGame"
+                                prefHeight="31.0" prefWidth="103.0" text="Play" GridPane.halignment="CENTER"
+                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#populateGame" prefHeight="31.0"
+                                prefWidth="98.0" text="Populate" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="31.0" prefWidth="107.0"
+                                text="Pause/Stop" textAlignment="CENTER" GridPane.columnIndex="2"
+                                GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER"
+                                GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </Button>
+                        <Label prefHeight="21.0" prefWidth="97.0" text="Generation #" GridPane.columnIndex="3"
+                               GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER"
+                               GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </Label>
+                        <Label fx:id="iterationNumberLabel" text="0" GridPane.columnIndex="4"
+                               GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER"
+                               GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </GridPane.margin>
+                        </Label>
                     </children>
-                </HBox>
+                </GridPane>
             </children>
         </AnchorPane>
     </items>
