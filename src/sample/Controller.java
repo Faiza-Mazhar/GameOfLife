@@ -80,6 +80,7 @@ public class Controller {
         gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
 
         this.playButton.setDisable(false);
+        this.playButton.setText("Play");
         this.displayOutput();
 
     }
@@ -134,9 +135,12 @@ public class Controller {
 
     @FXML
     private void playGame() {
+
         this.playButton.setDisable(true);
         this.populateButton.setDisable(true);
         this.pauseStopButton.setDisable(false);
+        this.pauseStopButton.setText("Pause");
+
         Runnable task = new Runnable() {
             @Override
             public void run() {
@@ -165,7 +169,10 @@ public class Controller {
         gameThread.start();
     }
 
-    /*
+    /* If game is in running state
+
+        1. Pause the game by setting isGameRunning to false
+        2. Enable play button to resume game again
      *
      * */
     @FXML
@@ -173,6 +180,8 @@ public class Controller {
         if (isGameRunning.get()) {
             isGameRunning.set(false);
             playButton.setDisable(false);
+            playButton.setText("Resume");
+            this.pauseStopButton.setText("Stop");
         } else {
             this.clearBoard();
             gameThread.interrupt();
@@ -180,6 +189,7 @@ public class Controller {
             this.playButton.setDisable(true);
             this.pauseStopButton.setDisable(true);
             this.generationNumberLabel.setText("0");
+
         }
     }
 
