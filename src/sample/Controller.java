@@ -23,6 +23,7 @@ public class Controller {
     private GameOfLife gameOfLife;
     private ArrayList<Position> currentGameState = new ArrayList<>();
     private int generationCounter = 0;
+    private Thread gameThread = new Thread();
 
     /*********************************************************************************
      This method with Populate game
@@ -76,6 +77,7 @@ public class Controller {
         runGame.set(true);
     }
 
+
     @FXML
     public void playGame() {
         //if game not already populated, then populate it and play game
@@ -112,10 +114,7 @@ public class Controller {
         Thread gameThread = new Thread(task);
         gameThread.setDaemon(true);
         gameThread.start();
-
-
     }
-
     /*******************************************************************************
      This function will pause/stop the game at any instance
      * if runGame == true
@@ -129,8 +128,10 @@ public class Controller {
 
         if (runGame.get()) {
             runGame.set(false);
+
             stopGame();
         } else {
+
             stopGame();
             resetGenerationCounter();
         }
