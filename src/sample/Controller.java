@@ -18,41 +18,34 @@ public class Controller {
     @FXML
     Label iterationNumberLabel = new Label();
 
-
     private final AtomicBoolean runGame = new AtomicBoolean(false);
-    /************************************************************
-     *
-     */
-
-    private int outputCellSize = 5; //every output seed size is 5X5
-
+    private int outputCellSize = 10; //every output seed size is 10X10
     private GameOfLife gameOfLife;
     private ArrayList<Position> currentGameState = new ArrayList<>();
     private int generationCounter = 0;
 
     /*********************************************************************************
-     This method with Populate game for the first time
+     This method with Populate game
+
      **********************************************************************************/
     @FXML
     public void populateGame() {
-        System.out.println(this.currentGameState.size());
         stopGame();
         resetGenerationCounter();
         //get width and height of current output window
         int maxWidthX = (int) outputPane.getBoundsInParent().getWidth() / outputCellSize;
         int maxHeightY = (int) outputPane.getBoundsInParent().getHeight() / outputCellSize;
-
-        //call the function to populate game with a list random positions
+        //if game is already running, it will clear the current state of game
         currentGameState.clear();
+        // populate game with a list of random positions and display given state of game
         currentGameState = this.getPositionList(maxWidthX, maxHeightY);
         this.displayOutput();
         //initiate game with Position on displayPane and width and height of pane
         gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
-
     }
 
     /*
-     * This method will take display output
+     * This method will display output
      * it will take positions of alive cell
      * iterate through ArrayList<position> currentGameState
      * make a rectangle and add to the display pane
@@ -65,17 +58,19 @@ public class Controller {
                     position.getX() * outputCellSize,
                     position.getY() * outputCellSize,
                     outputCellSize, outputCellSize);
-            rectangle.setStroke(Color.BEIGE);
-            rectangle.setFill(Color.web("#AA3939"));
+            rectangle.setStroke(Color.valueOf("#6F5AAC"));
+            rectangle.setFill(Color.web("#E3DDF6"));
             outputPane.getChildren().add(rectangle);
 
         });
     }
 
-    private void playCurrentGameState() {
+    /*
+     * for a given gameOfLife, it will get generate next state of game*/
+    private void getNextStateOfGOL() {
         generationCounter++;
         iterationNumberLabel.setText(String.valueOf(generationCounter));
-        clearBoard();
+        clearDisplay();
         currentGameState = gameOfLife.nextStateOfGame();
         displayOutput();
         runGame.set(true);
@@ -84,10 +79,10 @@ public class Controller {
     @FXML
     public void playGame() {
         //if game not already populated, then populate it and play game
+
         if (currentGameState.size() == 0) {
             this.populateGame();
         }
-
         //create a new thread
         //keep on playing the game until runGame == true
         //it someone tries to pause/clear board
@@ -97,15 +92,12 @@ public class Controller {
             @Override
             public void run() {
                 runGame.set(true);
-
                 Runnable screenUpdater = new Runnable() {
                     @Override
                     public void run() {
-                        playCurrentGameState();
+                        getNextStateOfGOL();
                     }
                 };//screenUpdater
-
-
                 while (runGame.get()) {
                     try {
                         Thread.sleep(120);
@@ -117,17 +109,19 @@ public class Controller {
                 }
             }
         };
-
         Thread gameThread = new Thread(task);
-
         gameThread.setDaemon(true);
         gameThread.start();
+
 
     }
 
     /*******************************************************************************
-     * If game is play, it will
-     *
+     This function will pause/stop the game at any instance
+     * if runGame == true
+     *  pause game --> runGame == false
+     * else
+     *  stop game -->reset Game
      */
 
     @FXML
@@ -142,20 +136,21 @@ public class Controller {
         }
     }//
 
-
-    private void clearBoard() {
+    //this function will clear the
+    private void clearDisplay() {
         this.outputPane.getChildren().clear();
     }
 
+    //this method will reset Generation counter to Zero
     private void resetGenerationCounter() {
         this.iterationNumberLabel.setText("0");
         this.generationCounter = 0;
     }
 
+    //this method with stop the game by clearing display and cleaning currentGameState arrayList
     private void stopGame() {
-        clearBoard();
+        clearDisplay();
         this.currentGameState = new ArrayList<>();
-
     }
 
     /*Generate a a list of Position with random number,
@@ -164,11 +159,9 @@ public class Controller {
      *
      *
      */
-
     private ArrayList<Position> getPositionList(int xMax, int yMax) {
 
-        GeneratePositions generatePositions = new GeneratePositions(xMax, yMax);
-        return generatePositions.getPositionArrayList();
+        return new GeneratePositions(xMax, yMax).getPositionArrayList();
 
     }
     /***************************************************************************/

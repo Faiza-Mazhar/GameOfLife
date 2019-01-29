@@ -15,6 +15,8 @@ class GeneratePositions {
         positionArrayList = new ArrayList<Position>();
     }
 
+    //generate random positions for game
+    //Ranges are set that positions are only in the centre 1/3 of the stage
     protected ArrayList<Position> getPositionArrayList() {
 
         Random random = new Random();
@@ -23,22 +25,22 @@ class GeneratePositions {
         int minStartingRangeY = this.maxY / 3;
         int maxStartingRangeY = (this.maxY * 2) / 3;
 
-
         for (int i = 0; i < maxStartingRangeX + maxStartingRangeY; i++) {
+            //create upper and lower limit of position
             int xPosition = random.nextInt((maxStartingRangeX - minStartingRangeX) + 1) + minStartingRangeX;
             int yPosition = random.nextInt((maxStartingRangeY - minStartingRangeY) + 1) + minStartingRangeY;
             Position currentPosition = new Position(xPosition, yPosition);
-            //System.out.println("In getPositionArrayList: xPosition " + xPosition + " :: yPosition" + yPosition );
-            if (!isCellAlive(currentPosition)) {
+
+            if (!isDuplicate(currentPosition)) {
                 positionArrayList.add(currentPosition);
+                i--;
             }
         }
-
         return positionArrayList;
     }
 
 
-    private boolean isCellAlive(Position position) {
+    private boolean isDuplicate(Position position) {
         if (position == null)
             return false;
         for (int i = 0; i < positionArrayList.size(); i++) {

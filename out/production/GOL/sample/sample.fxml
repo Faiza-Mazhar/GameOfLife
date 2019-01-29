@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
@@ -8,55 +14,75 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.RowConstraints?>-->
 
-<SplitPane dividerPositions="0.8869346733668342" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<SplitPane dividerPositions="0.8869346733668342" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
-                <Pane fx:id="outputPane" layoutX="178.0" layoutY="66.0" prefHeight="349.0" prefWidth="598.0" style="-fx-background-color: #FFC9AA;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Pane fx:id="outputPane" layoutX="178.0" layoutY="66.0" prefHeight="349.0" prefWidth="598.0" style="-fx-background-color: #1D0759;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                 </Pane>
             </children>
         </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: #1D0759;">
             <children>
-            <GridPane layoutX="-6.0" layoutY="-1.0" prefHeight="41.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
-               </rowConstraints>
-               <children>
-                        <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playGame" prefHeight="31.0" prefWidth="103.0" text="Play" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </GridPane.margin></Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#populateGame" prefHeight="31.0" prefWidth="98.0" text="Populate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </GridPane.margin></Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="31.0" prefWidth="107.0" text="Pause/Stop" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </GridPane.margin></Button>
-                  <Label prefHeight="21.0" prefWidth="97.0" text="Generation #" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                     </GridPane.margin></Label>
-                   <Label fx:id="iterationNumberLabel" text="0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </GridPane.margin></Label>
-               </children>
-            </GridPane>
+                <GridPane layoutX="-6.0" layoutY="-1.0" prefHeight="41.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints />
+                        <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+                    </rowConstraints>
+                    <children>
+                        <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playGame" prefHeight="31.0" prefWidth="103.0" text="Play" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </GridPane.margin>
+                     <font>
+                        <Font name="Bell MT Italic" size="24.0" />
+                     </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#populateGame" prefHeight="45.0" prefWidth="120.0" text="Populate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </GridPane.margin>
+                     <font>
+                        <Font name="Bell MT Italic" size="24.0" />
+                     </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="45.0" prefWidth="147.0" text="Pause/Stop" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </GridPane.margin>
+                     <font>
+                        <Font name="Bell MT Italic" size="24.0" />
+                     </font>
+                        </Button>
+                        <Label prefHeight="29.0" prefWidth="125.0" text="Generation #" textFill="#f8efef" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0" />
+                            </GridPane.margin>
+                     <font>
+                        <Font name="Bell MT Italic" size="24.0" />
+                     </font>
+                        </Label>
+                        <Label fx:id="iterationNumberLabel" contentDisplay="CENTER" text="0" textFill="#f8f1f1" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </GridPane.margin>
+                     <font>
+                        <Font name="Bell MT Italic" size="24.0" />
+                     </font>
+                        </Label>
+                    </children>
+                </GridPane>
             </children>
         </AnchorPane>
     </items>
