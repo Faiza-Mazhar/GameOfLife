@@ -16,7 +16,7 @@
 <?import javafx.scene.text.*?>
 <SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.8869346733668342" maxHeight="-Infinity"
            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0"
-           prefWidth="600.0" xmlns="http://javafx.com/javafx/8" fx:controller="sample.Controller">
+           prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="sample.Controller">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
@@ -46,19 +46,9 @@
                         <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS"/>
                     </rowConstraints>
                     <children>
-                        <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#playGame"
-                                prefHeight="31.0" prefWidth="103.0" text="Play" textAlignment="CENTER" wrapText="true"
-                                GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER"
-                                GridPane.vgrow="ALWAYS">
-                            <GridPane.margin>
-                                <Insets bottom="10.0" top="10.0"/>
-                            </GridPane.margin>
-                            <font>
-                                <Font name="Bell MT Italic" size="24.0"/>
-                            </font>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#populateGame" prefHeight="45.0"
-                                prefWidth="120.0" text="Populate" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                        <Button fx:id="playButton" contentDisplay="CENTER" mnemonicParsing="false"
+                                onMouseClicked="#playGame" prefHeight="31.0" prefWidth="103.0" text="Play"
+                                textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER"
                                 GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <GridPane.margin>
                                 <Insets bottom="10.0" top="10.0"/>
@@ -67,10 +57,21 @@
                                 <Font name="Bell MT Italic" size="24.0"/>
                             </font>
                         </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#pauseGame" prefHeight="45.0" prefWidth="147.0"
-                                text="Pause/Stop" textAlignment="CENTER" GridPane.columnIndex="2"
+                        <Button fx:id="populateButton" mnemonicParsing="false" onMouseClicked="#populateGame"
+                                prefHeight="45.0" prefWidth="120.0" text="Populate" GridPane.columnIndex="1"
                                 GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER"
                                 GridPane.vgrow="ALWAYS">
+                            <GridPane.margin>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </GridPane.margin>
+                            <font>
+                                <Font name="Bell MT Italic" size="24.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="pauseStopButton" mnemonicParsing="false" onMouseClicked="#pauseStopGame"
+                                prefHeight="45.0" prefWidth="147.0" text="Pause/Stop" textAlignment="CENTER"
+                                GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <GridPane.margin>
                                 <Insets bottom="10.0" top="10.0"/>
                             </GridPane.margin>
@@ -88,7 +89,7 @@
                                 <Font name="Bell MT Italic" size="24.0"/>
                             </font>
                         </Label>
-                        <Label fx:id="iterationNumberLabel" contentDisplay="CENTER" text="0" textFill="#f8f1f1"
+                        <Label fx:id="generationNumberLabel" contentDisplay="CENTER" text="0" textFill="#f8f1f1"
                                GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
                                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <GridPane.margin>

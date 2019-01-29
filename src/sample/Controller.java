@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -16,33 +17,70 @@ public class Controller {
     Pane outputPane = new Pane();
 
     @FXML
-    Label iterationNumberLabel = new Label();
+    Label generationNumberLabel = new Label();
 
-    private final AtomicBoolean runGame = new AtomicBoolean(false);
-    private int outputCellSize = 10; //every output seed size is 10X10
+    @FXML
+    Button playButton = new Button();
+
+    @FXML
+    Button populateButton = new Button();
+
+    @FXML
+    Button pauseStopButton = new Button();
+    Thread gameThread;
+    private AtomicBoolean isGameRunning;
     private GameOfLife gameOfLife;
-    private ArrayList<Position> currentGameState = new ArrayList<>();
-    private int generationCounter = 0;
-    private Thread gameThread = new Thread();
+    private int outputCellSize;
+    private ArrayList<Position> currentGameState;
+    private int generationCounter;
+
+    /*
+     * This method with initiate the game with proper variable initialisation
+     * **/
+
+    @FXML
+    private void initialize() {
+        isGameRunning = new AtomicBoolean(false);// game is not running at start
+        generationCounter = 0;
+
+        currentGameState = new ArrayList<>();
+        outputCellSize = 10; //output cell size is 10X10 pixel on grid
+        playButton.setDisable(true);
+        pauseStopButton.setDisable(true);
+
+
+    }
+
+
 
     /*********************************************************************************
      This method with Populate game
+     1. clearBoard() --> board must be clear of any existing out before population starts
+     2. resetGenerationLabel() --> generation counter should be reset to 0
+     3. clear currentGameState ArrayList so it does not hold state from previous game generation
+     3. get co-ordinates of current output window and divide with outputCell size so cell are not overlapping
+     4. get a list of position which occurs in the initial 1/3 centered location of board
+     5. initiate game with the outbounds of output stage
+     6. Enable play button so user can start playing game
+     7. Display alive cell
 
      **********************************************************************************/
     @FXML
-    public void populateGame() {
-        stopGame();
-        resetGenerationCounter();
-        //get width and height of current output window
+    private void populateGame() {
+
+        this.clearBoard();
+        this.resetGenerationLabel();
+        this.currentGameState.clear();
+
         int maxWidthX = (int) outputPane.getBoundsInParent().getWidth() / outputCellSize;
         int maxHeightY = (int) outputPane.getBoundsInParent().getHeight() / outputCellSize;
-        //if game is already running, it will clear the current state of game
-        currentGameState.clear();
-        // populate game with a list of random positions and display given state of game
-        currentGameState = this.getPositionList(maxWidthX, maxHeightY);
-        this.displayOutput();
-        //initiate game with Position on displayPane and width and height of pane
+
+        currentGameState = new GeneratePositions(maxWidthX, maxHeightY).getPositionArrayList();
         gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
+
+        this.playButton.setDisable(false);
+        this.displayOutput();
+
     }
 
     /*
@@ -51,7 +89,6 @@ public class Controller {
      * iterate through ArrayList<position> currentGameState
      * make a rectangle and add to the display pane
      * */
-    @FXML
     private void displayOutput() {
         currentGameState.forEach((position) -> {
 
@@ -66,106 +103,98 @@ public class Controller {
         });
     }
 
+    //This method with get next generation of game
     /*
-     * for a given gameOfLife, it will get generate next state of game*/
+     * 1. Increment generation counter
+     * 2. Set value on output label
+     * 3. Clear current display
+     * 4. Get next state of game with positions of alive cells
+     * 5. Display output
+     * */
     private void getNextStateOfGOL() {
         generationCounter++;
-        iterationNumberLabel.setText(String.valueOf(generationCounter));
-        clearDisplay();
+        generationNumberLabel.setText(String.valueOf(generationCounter));
+        clearBoard();
         currentGameState = gameOfLife.nextStateOfGame();
         displayOutput();
-        runGame.set(true);
     }
 
 
+    /**
+     * This methods runs the game until user pause it
+     * 1. Disable play and populate button, so that user does not create multiple threads to run game
+     * 2. Create Runnable task
+     * 3.   isGameRunning.set(true) --> Game is now in running mode
+     * 4.   While the game is running, put the UI thread to sleep so game can get next state and prepare stage to display out
+     * 5. Create game thread with the task
+     * 6. Set Daemon to true, so thread will die, when application closes
+     * 7. Start the thread to start having display on screen
+     */
+
     @FXML
-    public void playGame() {
-        //if game not already populated, then populate it and play game
-
-        if (currentGameState.size() == 0) {
-            this.populateGame();
-        }
-        //create a new thread
-        //keep on playing the game until runGame == true
-        //it someone tries to pause/clear board
-        //game will stop as it will set runGame.set(false)
-
+    private void playGame() {
+        this.playButton.setDisable(true);
+        this.populateButton.setDisable(true);
+        this.pauseStopButton.setDisable(false);
         Runnable task = new Runnable() {
             @Override
             public void run() {
-                runGame.set(true);
+                isGameRunning.set(true);
                 Runnable screenUpdater = new Runnable() {
                     @Override
                     public void run() {
                         getNextStateOfGOL();
                     }
                 };//screenUpdater
-                while (runGame.get()) {
+                while (isGameRunning.get()) {
                     try {
                         Thread.sleep(120);
 
                     } catch (InterruptedException ex) {
+
                         System.out.println("Exception: " + ex);
                     }
                     Platform.runLater(screenUpdater);
                 }
             }
         };
-        Thread gameThread = new Thread(task);
+
+        gameThread = new Thread(task);
         gameThread.setDaemon(true);
         gameThread.start();
     }
-    /*******************************************************************************
-     This function will pause/stop the game at any instance
-     * if runGame == true
-     *  pause game --> runGame == false
-     * else
-     *  stop game -->reset Game
-     */
 
+    /*
+     *
+     * */
     @FXML
-    public void pauseGame() {
-
-        if (runGame.get()) {
-            runGame.set(false);
-
-            stopGame();
+    private void pauseStopGame() {
+        if (isGameRunning.get()) {
+            isGameRunning.set(false);
+            playButton.setDisable(false);
         } else {
-
-            stopGame();
-            resetGenerationCounter();
+            this.clearBoard();
+            gameThread.interrupt();
+            this.populateButton.setDisable(false);
+            this.playButton.setDisable(true);
+            this.pauseStopButton.setDisable(true);
+            this.generationNumberLabel.setText("0");
         }
-    }//
+    }
 
-    //this function will clear the
-    private void clearDisplay() {
+
+    //This method will clear the board
+    private void clearBoard() {
         this.outputPane.getChildren().clear();
     }
 
-    //this method will reset Generation counter to Zero
-    private void resetGenerationCounter() {
-        this.iterationNumberLabel.setText("0");
+    //This method will reset Generation label
+    private void resetGenerationLabel() {
         this.generationCounter = 0;
+        this.generationNumberLabel.setText("0");
     }
 
-    //this method with stop the game by clearing display and cleaning currentGameState arrayList
-    private void stopGame() {
-        clearDisplay();
-        this.currentGameState = new ArrayList<>();
-    }
-
-    /*Generate a a list of Position with random number,
-     *xMax: indicates the upper limit of random number of position in x-axis i.e. 0-xMax
-     *yMax: indicates the upper limit of random number of position in y-axis i.e. 0-yMax
-     *
-     *
-     */
     private ArrayList<Position> getPositionList(int xMax, int yMax) {
-
         return new GeneratePositions(xMax, yMax).getPositionArrayList();
-
     }
-    /***************************************************************************/
-
-
 }

@@ -10,7 +10,7 @@ public class GameOfLife {
     private int maxHeightY;
 
 
-    protected GameOfLife(ArrayList<Position> aliveSeedList, int maxWidth, int maxHeight) {
+    GameOfLife(ArrayList<Position> aliveSeedList, int maxWidth, int maxHeight) {
         nextStateAliveSeedList = new ArrayList<>();
         this.aliveSeedList = aliveSeedList;
         this.maxWidthX = maxWidth;
@@ -29,7 +29,7 @@ public class GameOfLife {
 
     /***************************************************************************************/
 
-    private int countNeighbour(Position currentPosition) {
+    private int countAliveNeighbour(Position currentPosition) {
         int[] neighbours = {0};
         //neighbourPosition holds the position of all 8 neighbours
         ArrayList<Position> neighbourPositions = this.getNeighbourPositions(currentPosition);
@@ -64,25 +64,30 @@ public class GameOfLife {
     /***************************************************************************************/
 
     private ArrayList<Position> getNeighbourPositions(Position position) {
+
         ArrayList<Position> neighbourPositions = new ArrayList<>();
 
         //iterate through Neighbours, add direction co-ordinates and current alive cell's co-ordinates
         for (Direction direction : Direction.values()) {
+            //get  the position of a neighbour by going through enum Direction
             int neighbourPositionX = direction.getX() + position.getX();
+            //connect the screen at x-axis
             if (neighbourPositionX > maxWidthX) {
                 neighbourPositionX = 0;
             } else if (neighbourPositionX < 0) {
                 neighbourPositionX = maxWidthX;
             }
             int neighbourPositionY = direction.getY() + position.getY();
+            //connect the screen at y-axis to make loop
             if (neighbourPositionY > maxHeightY) {
                 neighbourPositionY = 0;
             } else if (neighbourPositionY < 0) {
                 neighbourPositionY = maxHeightY;
             }
-            Position neighbourPosition = new Position(neighbourPositionX, neighbourPositionY);
-            neighbourPositions.add(neighbourPosition);
+
+            neighbourPositions.add(new Position(neighbourPositionX, neighbourPositionY));
         }
+        //now neighbour list has all 8 neighbouring co-ordinates
         return neighbourPositions;
     }
 
@@ -91,7 +96,7 @@ public class GameOfLife {
      *
      * @param  position
      * @return boolean
-     *
+     * A cell is alive if it has a alive seed
      * This method take a Position and determined that is it alive or dead
      * It iterates through list of alive cell, if position is in aliveSeedList,
      * return true
@@ -117,19 +122,19 @@ public class GameOfLife {
     /*********************************************************************************
      * This methods determines the survival of seed
      * it iterates through list of alive seed
-     * get numberOfNeighbours
+     * get numberOfAliveNeighbours
      * if number of neighbours == 2 || 3
      *      add alive seed to next state of game
-     *      nextStateAliveSeedList.add(position)
+     *      i.e. nextStateAliveSeedList.add(position)
      */
 
+    //for every alive seed, check its
     protected void survivalOfSeed() {
-        int[] numberOfNeighbours = {0};
+        int[] numberOfAliveNeighbours = {0};
         aliveSeedList.forEach((position) -> {
-            numberOfNeighbours[0] = countNeighbour(position);
-            if (numberOfNeighbours[0] == 2 || numberOfNeighbours[0] == 3) {
+            numberOfAliveNeighbours[0] = countAliveNeighbour(position);
+            if (numberOfAliveNeighbours[0] == 2 || numberOfAliveNeighbours[0] == 3) {
                 nextStateAliveSeedList.add(position);
-                //  System.out.println("Seed alive at: " + position.getX() + " , " + position.getY());
             }
         });
     }
@@ -148,19 +153,13 @@ public class GameOfLife {
         ArrayList<Position> neighbourOfAliveCell;
 
         for (Position currentAlivePosition : aliveSeedList) {
-
             //get the co-ordinates of neighbouring cells of current alive cell
             neighbourOfAliveCell = getNeighbourPositions(currentAlivePosition);
-
             for (Position isCellAlive : neighbourOfAliveCell) {
-
                 if (!isCellAlive(aliveSeedList, isCellAlive)) { // if the cell is dead
-                    int neighbourCount = countNeighbour(isCellAlive);
-
+                    int neighbourCount = countAliveNeighbour(isCellAlive);
                     if (neighbourCount == 3 && (!isCellAlive(nextStateAliveSeedList, isCellAlive))) {
                         nextStateAliveSeedList.add(isCellAlive);
-                        //  System.out.println("/***************************/");
-                        // System.out.println("Cell created at: " + isCellAlive.getX() + " , " + isCellAlive.getY());
                     }
                 }
             }
@@ -171,7 +170,7 @@ public class GameOfLife {
     /********************************************************************/
     protected ArrayList<Position> nextStateOfGame() {
 
-        //check survival of seeds and creation of new lifs
+        //check survival of seeds and creation of new life
         this.survivalOfSeed();
         this.creationOfLIfe();
 
@@ -182,7 +181,6 @@ public class GameOfLife {
 
         return aliveSeedList;
     }
-
 
 }
 
