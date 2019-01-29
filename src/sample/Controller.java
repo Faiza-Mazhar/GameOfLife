@@ -14,20 +14,21 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class Controller {
 
     @FXML
-    Pane outputPane = new Pane();
+    private Pane outputPane = new Pane();
 
     @FXML
-    Label generationNumberLabel = new Label();
+    private Label generationNumberLabel = new Label();
 
     @FXML
-    Button playButton = new Button();
+    private Button playButton = new Button();
 
     @FXML
-    Button populateButton = new Button();
+    private Button populateButton = new Button();
 
     @FXML
-    Button pauseStopButton = new Button();
-    Thread gameThread;
+    private Button pauseStopButton = new Button();
+
+    private Thread gameThread;
     private AtomicBoolean isGameRunning;
     private GameOfLife gameOfLife;
     private int outputCellSize;
