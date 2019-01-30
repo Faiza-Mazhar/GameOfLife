@@ -10,13 +10,18 @@
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
-                <Pane fx:id="outputPane" layoutX="178.0" layoutY="66.0" prefHeight="349.0" prefWidth="598.0"
-                      style="-fx-background-color: #1D0759;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-                    </padding>
-                </Pane>
+                <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" prefHeight="1000" prefWidth="1000"
+                            vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                        <Pane fx:id="outputPane" prefHeight="1000.0" prefWidth="2000.0"
+                              style="-fx-background-color: #1D0759;">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                            </padding>
+                        </Pane>
+                    </content>
+                </ScrollPane>
             </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0"
@@ -26,11 +31,11 @@
                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                           AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
-                        <ColumnConstraints/>
                         <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
+                        <ColumnConstraints/>
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS"/>
@@ -39,8 +44,8 @@
                         <Button fx:id="playButton" contentDisplay="CENTER" mnemonicParsing="false"
                                 onMouseClicked="#playGame" prefHeight="31.0" prefWidth="103.0"
                                 style="-fx-background-color: #E3DDF6;" text="Play" textAlignment="CENTER"
-                                wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
-                                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <GridPane.margin>
                                 <Insets bottom="10.0" top="10.0"/>
                             </GridPane.margin>
@@ -50,8 +55,8 @@
                         </Button>
                         <Button fx:id="populateButton" mnemonicParsing="false" onMouseClicked="#populateGame"
                                 prefHeight="45.0" prefWidth="120.0" style="-fx-background-color: #E3DDF6;"
-                                text="Populate" GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                                GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                                text="Populate" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                             <GridPane.margin>
                                 <Insets bottom="10.0" top="10.0"/>
                             </GridPane.margin>

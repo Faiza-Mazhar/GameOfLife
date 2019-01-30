@@ -70,18 +70,18 @@ class GameOfLife {
             //get  the position of a neighbour by going through enum Direction
             int neighbourPositionX = direction.getX() + position.getX();
             //connect the screen at x-axis
-            if (neighbourPositionX > maxWidthX) {
-                neighbourPositionX = 0;
-            } else if (neighbourPositionX < 0) {
-                neighbourPositionX = maxWidthX;
-            }
+//            if (neighbourPositionX > maxWidthX) {
+//                neighbourPositionX = 0;
+//            } else if (neighbourPositionX < 0) {
+//                neighbourPositionX = maxWidthX;
+//            }
             int neighbourPositionY = direction.getY() + position.getY();
             //connect the screen at y-axis to make loop
-            if (neighbourPositionY > maxHeightY) {
-                neighbourPositionY = 0;
-            } else if (neighbourPositionY < 0) {
-                neighbourPositionY = maxHeightY;
-            }
+//            if (neighbourPositionY > maxHeightY) {
+//                neighbourPositionY = 0;
+//            } else if (neighbourPositionY < 0) {
+//                neighbourPositionY = maxHeightY;
+//            }
             neighbourPositions.add(new Position(neighbourPositionX, neighbourPositionY));
         }
         //now neighbour list has all 8 neighbouring co-ordinates
@@ -117,7 +117,7 @@ class GameOfLife {
      *      --> nextStateAliveSeedList.add(position)
      */
 
-    void survivalOfSeed() {
+    private void survivalOfSeed() {
         for (Position position : aliveSeedList) {
             int numberOfAliveNeighbours = countAliveNeighbour(position);
             if (numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3) {
@@ -136,7 +136,7 @@ class GameOfLife {
      * 5.                 if alive neighbours == 3
      * 6.                    create life at dead cell
      **************************************************************************/
-    void creationOfLIfe() {
+    private void creationOfLIfe() {
         ArrayList<Position> neighbourOfAliveCell;
         for (Position currentAlivePosition : aliveSeedList) {
             neighbourOfAliveCell = getNeighbourPositions(currentAlivePosition);
