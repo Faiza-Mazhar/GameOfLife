@@ -2,13 +2,12 @@ package sample;
 
 import java.util.ArrayList;
 
-public class GameOfLife {
+class GameOfLife {
     private ArrayList<Position> aliveSeedList;
     private ArrayList<Position> nextStateAliveSeedList;
 
     private int maxWidthX;
     private int maxHeightY;
-
 
     GameOfLife(ArrayList<Position> aliveSeedList, int maxWidth, int maxHeight) {
         nextStateAliveSeedList = new ArrayList<>();
@@ -16,8 +15,9 @@ public class GameOfLife {
         this.maxWidthX = maxWidth;
         this.maxHeightY = maxHeight;
     }
-    /***************************************************************************************/
-    /*
+
+    /***************************************************************************************
+     /*
      * Input: Position
      * Output: int
      *
@@ -25,48 +25,46 @@ public class GameOfLife {
      * It calls following functions:
      *   getNeighbourPositions()
      *   isNeighbourAlive()
-     * */
-
-    /***************************************************************************************/
+     *
+     *   1. Create a list of neighbouring position
+     *      --> this.getNeighbourPosition();
+     *   2. For each neighbouring position check if it is alive
+     *      --> isCellAlive()
+     *   3. If neighbour is alive, neighbours[0]++
+     *   4. Return total number of alive neighbours of currentPosition
+     ***************************************************************************************/
 
     private int countAliveNeighbour(Position currentPosition) {
-        int[] neighbours = {0};
-        //neighbourPosition holds the position of all 8 neighbours
+        int neighbour = 0;
         ArrayList<Position> neighbourPositions = this.getNeighbourPositions(currentPosition);
 
-        //for each neighbour, check if it is alive
-        //if alive, neighbour++
-        neighbourPositions.forEach((position) -> {
+        for (Position position : neighbourPositions) {
             if (isCellAlive(aliveSeedList, position)) {
-                neighbours[0]++;
+                neighbour++;
             }
-        });
-        return neighbours[0];
+        }
+        return neighbour;
     }
-
-    /***************************************************************************************/
-    /*
-    * Input: position of alive cell
-    * Output Arraylist<Position>
-    * This program takes the position of a cell and get the Positions of neighbours
-    * It uses enum Neighbours, and find neighbours in
-    * Direction(x,y)
-    * NorthWest(-1,-1),
-      North(0,-1),
-      NorthEast(1,-1),
-      East(1,0),
-      SouthEast(1,1),
-      South(0,1),
-      SouthWest(-1, 1),
-      West(-1,0);
-    * */
-
+    /***************************************************************************************
+     /*
+     * Input: position of alive cell
+     * Output ArrayList<Position>
+     * This program takes the position of a cell and get the Positions of neighbours
+     * It uses enum Direction, and find neighbours by adding Directions to current cell position
+     * Direction(x,y)
+     * NorthWest(-1,-1),
+     North(0,-1),
+     NorthEast(1,-1),
+     East(1,0),
+     SouthEast(1,1),
+     South(0,1),
+     SouthWest(-1, 1),
+     West(-1,0);
+     * */
     /***************************************************************************************/
 
     private ArrayList<Position> getNeighbourPositions(Position position) {
-
         ArrayList<Position> neighbourPositions = new ArrayList<>();
-
         //iterate through Neighbours, add direction co-ordinates and current alive cell's co-ordinates
         for (Direction direction : Direction.values()) {
             //get  the position of a neighbour by going through enum Direction
@@ -84,7 +82,6 @@ public class GameOfLife {
             } else if (neighbourPositionY < 0) {
                 neighbourPositionY = maxHeightY;
             }
-
             neighbourPositions.add(new Position(neighbourPositionX, neighbourPositionY));
         }
         //now neighbour list has all 8 neighbouring co-ordinates
@@ -92,10 +89,6 @@ public class GameOfLife {
     }
 
     /********************************************************************************
-     *
-     *
-     * @param  position
-     * @return boolean
      * A cell is alive if it has a alive seed
      * This method take a Position and determined that is it alive or dead
      * It iterates through list of alive cell, if position is in aliveSeedList,
@@ -103,57 +96,49 @@ public class GameOfLife {
      * else return false
      *
      */
-
     private boolean isCellAlive(ArrayList<Position> currentList, Position position) {
-
         if (position == null)
             return false;
-
-        for (int i = 0; i < currentList.size(); i++) {
-            if (currentList.get(i).getX() == position.getX()
-                    && currentList.get(i).getY() == position.getY()) {
+        for (Position currentListPosition : currentList) {
+            if (currentListPosition.getX() == position.getX()
+                    && currentListPosition.getY() == position.getY()) {
                 return true;
             }
         }
         return false;
-
     }
 
     /*********************************************************************************
      * This methods determines the survival of seed
-     * it iterates through list of alive seed
-     * get numberOfAliveNeighbours
-     * if number of neighbours == 2 || 3
-     *      add alive seed to next state of game
-     *      i.e. nextStateAliveSeedList.add(position)
+     * 1. Iterates through list of alive seed
+     * 2. Get numberOfAliveNeighbours
+     * 3. If number of neighbours == 2 || 3
+     * 4.     add alive seed to next state of game
+     *      --> nextStateAliveSeedList.add(position)
      */
 
-    //for every alive seed, check its
-    protected void survivalOfSeed() {
-        int[] numberOfAliveNeighbours = {0};
-        aliveSeedList.forEach((position) -> {
-            numberOfAliveNeighbours[0] = countAliveNeighbour(position);
-            if (numberOfAliveNeighbours[0] == 2 || numberOfAliveNeighbours[0] == 3) {
+    void survivalOfSeed() {
+        for (Position position : aliveSeedList) {
+            int numberOfAliveNeighbours = countAliveNeighbour(position);
+            if (numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3) {
                 nextStateAliveSeedList.add(position);
             }
-        });
+        }
     }
-
 
     /********************************************************************
      * This method iterates through list of alive cell
      * (life can only be created on a cell adjacent to alive cell)
-     * finds neighbouring dead cell
-     * for each neighbouring dead cell
-     *      count its alive neighbours
-     *          if alive neighbours == 3
-     *              create life at dead cell
+     * 1. For every alive cell
+     * 2.   Find  neighbouring dead cell
+     * 3.       For each neighbouring dead cell
+     * 4.             count its alive neighbours
+     * 5.                 if alive neighbours == 3
+     * 6.                    create life at dead cell
      **************************************************************************/
-    protected void creationOfLIfe() {
+    void creationOfLIfe() {
         ArrayList<Position> neighbourOfAliveCell;
-
         for (Position currentAlivePosition : aliveSeedList) {
-            //get the co-ordinates of neighbouring cells of current alive cell
             neighbourOfAliveCell = getNeighbourPositions(currentAlivePosition);
             for (Position isCellAlive : neighbourOfAliveCell) {
                 if (!isCellAlive(aliveSeedList, isCellAlive)) { // if the cell is dead
@@ -163,24 +148,23 @@ public class GameOfLife {
                     }
                 }
             }
-
         }
     }
 
-    /********************************************************************/
-    protected ArrayList<Position> nextStateOfGame() {
-
-        //check survival of seeds and creation of new life
+    /********************************************************************
+     1. Check survival of seeds of current state of game
+     2. Create new life based upon current state of game
+     3. Prepare game for next state
+     4. Return alive seed list, ready to be displayed
+     /********************************************************************/
+    ArrayList<Position> nextStateOfGame() {
         this.survivalOfSeed();
         this.creationOfLIfe();
 
-        //prepare game for next state
         this.aliveSeedList.clear();
         this.aliveSeedList.addAll(this.nextStateAliveSeedList);
         this.nextStateAliveSeedList.clear();
 
         return aliveSeedList;
     }
-
 }
-
