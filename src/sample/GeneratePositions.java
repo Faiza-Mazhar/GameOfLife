@@ -5,13 +5,16 @@ import java.util.Random;
 
 class GeneratePositions {
 
-    private int maxX;
-    private int maxY;
+    private int minX, maxX;
+    private int minY, maxY;
     private ArrayList<Position> positionArrayList;
 
-    GeneratePositions(int maxX, int maxY) {
+    GeneratePositions(int minX, int maxX, int minY, int maxY) {
+        this.minX = minX;
         this.maxX = maxX;
+        this.minY = minY;
         this.maxY = maxY;
+
         positionArrayList = new ArrayList<>();
     }
 
@@ -24,16 +27,13 @@ class GeneratePositions {
      */
     ArrayList<Position> getPositionArrayList() {
         Random random = new Random();
-        int minStartingRangeX = this.maxX / 3;
-        int maxStartingRangeX = (this.maxX * 2) / 3;
-        int minStartingRangeY = this.maxY / 3;
-        int maxStartingRangeY = (this.maxY * 2) / 3;
+
         for (int i = 0; i < (this.maxX + this.maxY) * 2; i++) {
             //create upper and lower limit of position
             int xPosition = random.nextInt(
-                    (maxStartingRangeX - minStartingRangeX) + 1) + minStartingRangeX;
+                    (maxX - minX) + 1) + minX;
             int yPosition = random.nextInt(
-                    (maxStartingRangeY - minStartingRangeY) + 1) + minStartingRangeY;
+                    (maxY - minY) + 1) + minY;
             Position currentPosition = new Position(xPosition, yPosition);
             if (!isDuplicate(currentPosition)) {
                 positionArrayList.add(currentPosition);

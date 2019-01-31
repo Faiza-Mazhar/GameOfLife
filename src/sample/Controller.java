@@ -51,8 +51,8 @@ public class Controller {
         outputCellSize = 10; //output cell size is 10X10 pixel on grid
         playButton.setDisable(true); // at the start Play button is disables
         pauseStopButton.setDisable(true); // at the start pauseStop button is disables
-        System.out.println(outputPane.getPrefHeight());
-        System.out.println(outputPane.getPrefWidth());
+        System.out.println(scrollPane.getPrefWidth());
+        System.out.println(scrollPane.getPrefHeight());
     }
 
     /*********************************************************************************
@@ -71,7 +71,8 @@ public class Controller {
         int maxWidthX = (int) outputPane.getPrefWidth() / outputCellSize;
         int maxHeightY = (int) outputPane.getHeight() / outputCellSize;
 
-        currentGameState = new GeneratePositions(maxWidthX, maxHeightY).getPositionArrayList();
+
+        currentGameState = generateRandomList(maxWidthX, maxHeightY);
 
         gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
 
@@ -253,4 +254,14 @@ public class Controller {
         this.generationCounter = 0;
         this.generationNumberLabel.setText("0");
     }
+
+    //
+    private ArrayList<Position> generateRandomList(int maxWidthX, int maxHeightY) {
+        int minStartingRangeX = maxWidthX / 3;
+        int maxStartingRangeX = (maxWidthX * 2) / 3;
+        int minStartingRangeY = maxHeightY / 3;
+        int maxStartingRangeY = (maxHeightY * 2) / 3;
+        return new GeneratePositions(minStartingRangeX, maxStartingRangeX, minStartingRangeY, maxStartingRangeY).getPositionArrayList();
+    }
+
 }
