@@ -51,11 +51,14 @@ public class Controller {
         outputCellSize = 10; //output cell size is 10X10 pixel on grid
         playButton.setDisable(true); // at the start Play button is disables
         pauseStopButton.setDisable(true); // at the start pauseStop button is disables
-        System.out.println(scrollPane.getPrefWidth());
-        System.out.println(scrollPane.getPrefHeight());
     }
 
     /*********************************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls:   this.clearBoard()
+     * Called by: None
+     * ********************************************************************************
      This method with Populate game
      1. get co-ordinates of current output window and divide with outputCell size so cell are not overlapping
      2. get a list of position which occurs in the initial 1/3 centered location of board
@@ -64,23 +67,29 @@ public class Controller {
      5. Display alive cell
 
      **********************************************************************************/
+
     @FXML
     private void populateGame() {
-        // int maxWidthX = (int) outputPane.getBoundsInParent().getWidth() / outputCellSize;
-        // int maxHeightY = (int) outputPane.getBoundsInParent().getHeight() / outputCellSize;
         int maxWidthX = (int) outputPane.getPrefWidth() / outputCellSize;
         int maxHeightY = (int) outputPane.getHeight() / outputCellSize;
 
+        this.currentGameState.clear();
+        this.clearBoard();
 
         currentGameState = generateRandomList(maxWidthX, maxHeightY);
-
-        gameOfLife = new GameOfLife(currentGameState, maxWidthX, maxHeightY);
+        gameOfLife = new GameOfLife(currentGameState);
 
         this.playButton.setDisable(false);
         this.playButton.setText("Play");
         this.displayOutput();
     }
     /***********************************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls: this.checkNegativeAxis()
+     * Called by: 1. getNextStateOfGOL()
+     *            2. populateGame()
+     * ********************************************************************************
      * This method will display output
      * It iterate through ArrayList<position> currentGameState
      * make a rectangle and add to the display pane
@@ -115,6 +124,12 @@ public class Controller {
     }
 
     /*******************************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls:
+     * Called by: displayOutput()
+     *
+     * ********************************************************************************
      * This program will reset position if cell are growing in -ve axis
      * 1. For every position in currentGameState list
      * 2.   Find minX and minY
@@ -147,6 +162,14 @@ public class Controller {
         }
     }
     /******************************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls:  1. this.clearBoard();
+     *         2. GameOfLife nextStateOfGame();
+     *         3. this.displayOutput();
+     * Called by: 1. this.playGame()
+     *
+     * ********************************************************************************
      This method with get next generation of game
      * 1. Clear current display of alive cells
      * 2. Get next state of game with positions of alive cells
@@ -155,13 +178,19 @@ public class Controller {
      * 5. Display generationCounter value on output label
      * *******************************************************************************/
     private void getNextStateOfGOL() {
-        clearBoard();
+        this.clearBoard();
         currentGameState = gameOfLife.nextStateOfGame();
-        displayOutput();
+        this.displayOutput();
         generationCounter++;
         generationNumberLabel.setText(String.valueOf(generationCounter));
     }
     /**
+     * Parameters: None
+     * Returns: void
+     * Calls: getNextStateOfGOL();
+     * Called by:
+     *
+     * ********************************************************************************
      * This methods runs the game until user pause it
      * 1. Disable play and populate button, so that user does not create multiple threads to run game
      * 2. Create Runnable task
@@ -208,6 +237,12 @@ public class Controller {
     }
 
     /*****************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls:  this.clearBoard()
+     * Called by:
+     *
+     * ********************************************************************************
      *  1. If game is in running state
      2. Pause the game by setting isGameRunning to false
      3. Set appropriate labels on the buttons
@@ -245,17 +280,43 @@ public class Controller {
             this.playButton.setText("Play");
         }
     }
-    //This method will clear the board
+
+    /*****************************************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls: None
+     * Called by: 1. populateGame()
+     *            2. getNextStateOfGOL()
+     *            3. pauseStopGame()
+     *
+     * ********************************************************************************
+     //This method will clear the board*/
     private void clearBoard() {
         this.outputPane.getChildren().clear();
     }
-    //This method will reset Generation label
+
+    /*****************************************************************************************
+     * Parameters: None
+     * Returns: void
+     * Calls: None
+     * Called by: 1. pauseStopGame()
+     *
+     * ********************************************************************************
+     * This method will reset Generation label*/
     private void resetGenerationLabel() {
         this.generationCounter = 0;
         this.generationNumberLabel.setText("0");
     }
 
-    //
+    /*****************************************************************************************
+     * Parameters: int, int
+     * Returns: ArrayList<Position></Position>
+     * Calls: GeneratePositions getPositionArrayList()
+     * Called by: populateGame()
+     *
+     * ********************************************************************************
+     // This method will create max n min ranges to Randomly generate position for first population of game.
+     // 1. Ranges are set that positions are only in the centre 1/3 of the stage*/
     private ArrayList<Position> generateRandomList(int maxWidthX, int maxHeightY) {
         int minStartingRangeX = maxWidthX / 3;
         int maxStartingRangeX = (maxWidthX * 2) / 3;

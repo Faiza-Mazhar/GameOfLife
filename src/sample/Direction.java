@@ -1,6 +1,6 @@
 package sample;
 
-//Create an Enum of direction and co-ordination of a Cell's neighbours w.r.t to current alive cell
+//Create an Enum of direction and co-ordination of a Cell's neighbours w.r.t to current cell
 public enum Direction {
 
     NorthWest(-1, -1),

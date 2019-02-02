@@ -19,8 +19,14 @@ class GeneratePositions {
     }
 
     /**************************************************************************
+     * Parameters: None
+     * Returns: ArrayList<Position>
+     * Calls: 1. isDuplicate()
+     * Called by: 1. Controller generateRandomList();
+     *
+     * ********************************************************************************
      * Generate random positions for game
-     *1. Ranges are set that positions are only in the centre 1/3 of the stage
+     *1. Generate a random position
      *2. If a position is not in list, add position
      *3.      else i--, so that out total number of position stays same
      *4.      Total number of position should be OutputHeight + Output Length
@@ -45,7 +51,12 @@ class GeneratePositions {
     }
 
     /***********************************************************************************
+     * Parameters: Position
+     * Returns: boolean
+     * Calls: None
+     * Called by: this.getPositionArrayList()
      *
+     * ********************************************************************************
      This method checks that positions are not duplicated in list
      1. Iterate through list,
      2.     if any position in list is same as the the current position
