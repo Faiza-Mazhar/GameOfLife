@@ -301,5 +301,4 @@ public class Controller {
         int maxStartingRangeY = (maxHeightY * 2) / 3;
         return new GeneratePositions(minStartingRangeX, maxStartingRangeX, minStartingRangeY, maxStartingRangeY).getPositionArrayList();
     }
-
 }
