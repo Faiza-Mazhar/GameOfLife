@@ -67,7 +67,6 @@ class GameOfLife {
         }
         return neighbourPositions;
     }
-
     /********************************************************************************
      * Parameters: ArrayList<Position>, Position
      * Returns: boolean
@@ -77,9 +76,8 @@ class GameOfLife {
      * ********************************************************************************
      * This method take a Position and determined that is it alive or dead
      * It iterates through the list of alive cell, if position is in aliveCellList,
-     * return true
+     *      return true
      * else return false
-     *
      */
     private boolean isCellAlive(ArrayList<Position> currentList, Position position) {
         if (position == null)
@@ -92,13 +90,11 @@ class GameOfLife {
         }
         return false;
     }
-
     /*********************************************************************************
      * Parameters: None
      * Returns: void
      * Calls: countAliveNeighbours()
      * Called by: nextStateOfGame()
-     *
      * ********************************************************************************
      * This methods determines the survival of seed
      * 1. Iterates through list of alive seed
@@ -107,7 +103,6 @@ class GameOfLife {
      * 4.     add alive seed to next state of game
      *      --> nextStateAliveCellList.add(position)
      */
-
     private void survivalOfCell() {
         for (Position position : aliveCellList) {
             int numberOfAliveNeighbours = countAliveNeighbours(position);
@@ -116,7 +111,6 @@ class GameOfLife {
             }
         }
     }
-
     /***************************************************************************
      * Parameters: None
      * Returns: void
@@ -124,7 +118,6 @@ class GameOfLife {
      *        2. isCellAlive()
      *        3. countAliveNeighbours()
      * Called by: this.nextStateOfGame()
-     *
      * ********************************************************************************
      * This method iterates through list of alive cell
      * (life can only be created on a cell adjacent to alive cell)
@@ -155,9 +148,7 @@ class GameOfLife {
      * Calls: 1. this.survivalOfCell()
      *        2.  this.creationOfLIfe()
      * Called by: Controller getNextStateOfGOL()
-     *
      * ********************************************************************************
-
      1. Check survival of seeds of current state of game
      2. Create new life based upon current state of game
      3. Prepare game for next state

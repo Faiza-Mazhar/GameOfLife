@@ -61,7 +61,6 @@ public class Controller {
      3. Initiate Game of Life
      4. Enable Play button
      5. Display given state of game
-
      **********************************************************************************/
 
     @FXML
@@ -115,13 +114,11 @@ public class Controller {
             outputPane.getChildren().add(rectangle);
         });
     }
-
     /*******************************************************************************
      * Parameters: None
      * Returns: void
      * Calls: None
      * Called by: displayOutput()
-     *
      * ********************************************************************************
      * This program will reset positions if cell are growing in -ve axis
      * 1. For every position in currentGameState list
@@ -161,7 +158,6 @@ public class Controller {
      *         2. GameOfLife nextStateOfGame();
      *         3. this.displayOutput();
      * Called by: 1. this.playGame()
-     *
      * ********************************************************************************
      This method with get next generation of game
      * 1. Clear current display of alive cells
@@ -176,13 +172,11 @@ public class Controller {
         generationCounter++;
         generationNumberLabel.setText(String.valueOf(generationCounter));
     }
-
     /*************************************************************************************
      * Parameters: None
      * Returns: void
      * Calls: getNextStateOfGOL();
      * Called by: Play button in GUI
-     *
      * ********************************************************************************
      * This methods runs the game until user pause it
      * 1. Disable play and populate button, so that user does not create multiple threads to run game
@@ -193,7 +187,6 @@ public class Controller {
      * 6. Set Daemon to true, so thread will die, when application closes
      * 7. Start the thread to start having display on screen
      */
-
     @FXML
     private void playGame() {
         this.playButton.setDisable(true);
