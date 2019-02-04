@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -16,9 +15,6 @@ public class Controller {
 
     @FXML
     private Pane outputPane = new Pane();
-
-    @FXML
-    private ScrollPane scrollPane = new ScrollPane();
 
     @FXML
     private Label generationNumberLabel = new Label();
@@ -64,7 +60,7 @@ public class Controller {
      2. get a list of position which occurs in the initial 1/3 centered location of board
      3. initiate game with the outbounds of output stage
      4. Enable play button so user can start playing game
-     5. Display alive cell
+     5. Display given state of game
 
      **********************************************************************************/
 
@@ -86,21 +82,18 @@ public class Controller {
     /***********************************************************************************
      * Parameters: None
      * Returns: void
-     * Calls: this.checkNegativeAxis()
-     * Called by: 1. getNextStateOfGOL()
+     * Calls:
+     *            1. this.checkNegativeAxis()
+     * Called by:
+     *            1. getNextStateOfGOL()
      *            2. populateGame()
      * ********************************************************************************
      * This method will display output
-     * It iterate through ArrayList<position> currentGameState
-     * make a rectangle and add to the display pane
-     *
      * 1. Check if cell are growing in -ve axis, and update the positions accordingly
      * 2. For each position in game
      * 3.   Check if position x and y axis are bigger than the outputPane
      *          if yes --> grow the pane to make space for 20 more cells in respective axis
      * 4. Create a rectangle with desired position and display it.
-     *
-     *
      ***********************************************************************************/
     private void displayOutput() {
         this.checkNegativeAxis();
@@ -130,12 +123,12 @@ public class Controller {
      * Called by: displayOutput()
      *
      * ********************************************************************************
-     * This program will reset position if cell are growing in -ve axis
+     * This program will reset positions if cell are growing in -ve axis
      * 1. For every position in currentGameState list
-     * 2.   Find minX and minY
+     * 2.   Find minimum numbers in -ve axis
      * 3. If there is any growth in -ve axis then minX and/or minY will be <0
-     *      minX->minimum it has gone in -ve X-axis and  minY->minimum it has gone in -ve Y-axis
-     *      e.g. if there is two position,
+     *      minX-> minimum it has gone in -ve X-axis and  minY-> minimum it has gone in -ve Y-axis
+     *      e.g. if there are two position such as,
      *      Position1 =  (x: -4, y: -5) and Position2 =(x: -3, y: -6)
      *      then minX = -4, minY = -6
      * 4.   Reset the position in currentGameState w.r.t minX and minY e.g.Position1(0, 1) and Position2(1 , 0)
@@ -174,8 +167,7 @@ public class Controller {
      * 1. Clear current display of alive cells
      * 2. Get next state of game with positions of alive cells
      * 3. Display output
-     * 4. Increment generation counter
-     * 5. Display generationCounter value on output label
+     * 4. Increment generation counter and update
      * *******************************************************************************/
     private void getNextStateOfGOL() {
         this.clearBoard();
@@ -184,11 +176,12 @@ public class Controller {
         generationCounter++;
         generationNumberLabel.setText(String.valueOf(generationCounter));
     }
-    /**
+
+    /*************************************************************************************
      * Parameters: None
      * Returns: void
      * Calls: getNextStateOfGOL();
-     * Called by:
+     * Called by: Play button in GUI
      *
      * ********************************************************************************
      * This methods runs the game until user pause it
@@ -240,7 +233,7 @@ public class Controller {
      * Parameters: None
      * Returns: void
      * Calls:  this.clearBoard()
-     * Called by:
+     * Called by: Pause/Stop button in GUI
      *
      * ********************************************************************************
      *  1. If game is in running state
@@ -262,22 +255,14 @@ public class Controller {
     private void pauseStopGame() {
         if (isGameRunning.get()) {
             isGameRunning.set(false);
-
             playButton.setDisable(false);
             playButton.setText("Resume");
             this.pauseStopButton.setText("Stop");
 
         } else {
-
             gameThread.interrupt();
             this.clearBoard();
-
-            this.populateButton.setDisable(false);
-            this.playButton.setDisable(true);
-            this.pauseStopButton.setDisable(true);
-
-            this.resetGenerationLabel();
-            this.playButton.setText("Play");
+            this.resetGame();
         }
     }
 
@@ -302,10 +287,18 @@ public class Controller {
      * Called by: 1. pauseStopGame()
      *
      * ********************************************************************************
-     * This method will reset Generation label*/
-    private void resetGenerationLabel() {
+     * This method will reset game to initial state*/
+    private void resetGame() {
         this.generationCounter = 0;
-        this.generationNumberLabel.setText("0");
+        generationNumberLabel.setText(String.valueOf(generationCounter));
+
+        this.populateButton.setDisable(false);
+        this.playButton.setDisable(true);
+        this.pauseStopButton.setDisable(true);
+        this.playButton.setText("Play");
+
+        outputPane.setPrefWidth(2000);
+        outputPane.setPrefHeight(1000);
     }
 
     /*****************************************************************************************

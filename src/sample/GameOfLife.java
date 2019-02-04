@@ -16,7 +16,7 @@ class GameOfLife {
      * Returns: int
      * Calls: this.getNeighbourPositions()
      * Called by: 1. survivalOfSeed()
-     *            2. creationOfLIfe()
+     *            2. creationOfLife()
      *
      * ********************************************************************************
      * This programs will take a current position of a live cells and return how many neighbours it have
@@ -28,7 +28,7 @@ class GameOfLife {
      *      --> this.getNeighbourPosition();
      *   2. For each neighbouring position check if it is alive
      *      --> isCellAlive()
-     *   3. If neighbour is alive, neighbours[0]++
+     *   3. If neighbour is alive, neighbour++
      *   4. Return total number of alive neighbours of currentPosition
      ***************************************************************************************/
 
@@ -54,9 +54,9 @@ class GameOfLife {
      * Input: position of alive cell
      * Output ArrayList<Position>
      * This program takes the position of a cell and get the Positions of neighbours
-     * It uses enum Direction, and find neighbours by adding Directions to current cell position
-     * Direction(x,y)
-     * NorthWest(-1,-1),
+     * It uses enum Direction, and find neighbouring position by adding Directions to current cell position
+     Direction(x,y)
+     NorthWest(-1,-1),
      North(0,-1),
      NorthEast(1,-1),
      East(1,0),
@@ -68,16 +68,11 @@ class GameOfLife {
 
     private ArrayList<Position> getNeighbourPositions(Position position) {
         ArrayList<Position> neighbourPositions = new ArrayList<>();
-        //iterate through Neighbours, add direction co-ordinates and current alive cell's co-ordinates
         for (Direction direction : Direction.values()) {
-            //get  the position of a neighbour by going through enum Direction
             int neighbourPositionX = direction.getX() + position.getX();
-
             int neighbourPositionY = direction.getY() + position.getY();
-
             neighbourPositions.add(new Position(neighbourPositionX, neighbourPositionY));
         }
-        //now neighbour list has all 8 neighbouring co-ordinates
         return neighbourPositions;
     }
 
