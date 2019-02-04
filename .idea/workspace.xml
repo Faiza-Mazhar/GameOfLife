@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Documentation improved.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readMe.txt" beforeDir="false" afterPath="$PROJECT_DIR$/readMe.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/GameOfLife.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/GameOfLife.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/GeneratePositions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/GeneratePositions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sample/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/sample/sample.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Documentation improved." />
     <list id="496df92b-40f1-4ef8-9353-8b6fc2bc5928" name="doc" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL/sample/Controller$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL/sample/Controller$1$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL/sample/Controller$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL/sample/Controller$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/GOL/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GOL/sample/Controller.class" afterDir="false" />
@@ -86,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5500">
-              <caret line="318" column="1" selection-start-line="318" selection-start-column="1" selection-end-line="318" selection-end-column="1" />
+            <state relative-caret-position="142">
+              <caret line="203" column="24" selection-start-line="203" selection-start-column="24" selection-end-line="203" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -99,8 +92,8 @@
         <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-166">
-              <caret line="63" column="10" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
+            <state relative-caret-position="133">
+              <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
               <folding>
                 <element signature="n#GridPane.margin#0;n#Button#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
                 <element signature="n#font#0;n#Button#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
@@ -116,11 +109,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readMe.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="27" column="76" selection-start-line="27" selection-start-column="76" selection-end-line="27" selection-end-column="76" />
+            <state relative-caret-position="149">
+              <caret line="28" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -219,7 +212,7 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549317537968" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549317598415" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -449,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1549281350195</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Documentation improved.">
+      <created>1549317570838</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1549317570838</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -478,7 +478,7 @@
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
       <window_info anchor="bottom" id="Event Log" order="12" weight="0.3286119" />
-      <window_info anchor="bottom" id="Messages" order="13" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Messages" order="13" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -606,25 +606,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-166">
-          <caret line="63" column="10" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
-          <folding>
-            <element signature="n#GridPane.margin#0;n#Button#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#font#0;n#Button#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#GridPane.margin#0;n#Button#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#font#0;n#Button#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#GridPane.margin#0;n#Button#2;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#font#0;n#Button#2;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#font#0;n#Label#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#GridPane.margin#0;n#Label#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-            <element signature="n#font#0;n#Label#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Direction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-44">
@@ -656,17 +637,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+    <entry file="file://$PROJECT_DIR$/readMe.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5500">
-          <caret line="318" column="1" selection-start-line="318" selection-start-column="1" selection-end-line="318" selection-end-column="1" />
+        <state relative-caret-position="149">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/readMe.txt">
+    <entry file="file://$PROJECT_DIR$/src/sample/sample.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="27" column="76" selection-start-line="27" selection-start-column="76" selection-end-line="27" selection-end-column="76" />
+        <state relative-caret-position="133">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+          <folding>
+            <element signature="n#GridPane.margin#0;n#Button#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#font#0;n#Button#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#GridPane.margin#0;n#Button#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#font#0;n#Button#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#GridPane.margin#0;n#Button#2;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#font#0;n#Button#2;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#font#0;n#Label#0;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#GridPane.margin#0;n#Label#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+            <element signature="n#font#0;n#Label#1;n#children#0;n#GridPane#0;n#children#0;n#AnchorPane#1;n#items#0;n#SplitPane#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="203" column="24" selection-start-line="203" selection-start-column="24" selection-end-line="203" selection-end-column="24" />
         </state>
       </provider>
     </entry>
