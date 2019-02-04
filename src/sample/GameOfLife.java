@@ -3,27 +3,22 @@ package sample;
 import java.util.ArrayList;
 
 class GameOfLife {
-    private ArrayList<Position> aliveSeedList;
-    private ArrayList<Position> nextStateAliveSeedList;
+    private ArrayList<Position> aliveCellList;
+    private ArrayList<Position> nextStateAliveCellList;
 
-    GameOfLife(ArrayList<Position> aliveSeedList) {
-        nextStateAliveSeedList = new ArrayList<>();
-        this.aliveSeedList = aliveSeedList;
+    GameOfLife(ArrayList<Position> aliveCellList) {
+        nextStateAliveCellList = new ArrayList<>();
+        this.aliveCellList = aliveCellList;
     }
 
     /***************************************************************************************
      * Parameters: Position
      * Returns: int
      * Calls: this.getNeighbourPositions()
-     * Called by: 1. survivalOfSeed()
+     * Called by: 1. survivalOfCell()
      *            2. creationOfLife()
-     *
      * ********************************************************************************
-     * This programs will take a current position of a live cells and return how many neighbours it have
-     * It calls following functions:
-     *   getNeighbourPositions()
-     *   isNeighbourAlive()
-     *
+     * This programs will take a current position of a live cells and return its neighbour count
      *   1. Create a list of neighbouring position
      *      --> this.getNeighbourPosition();
      *   2. For each neighbouring position check if it is alive
@@ -32,12 +27,12 @@ class GameOfLife {
      *   4. Return total number of alive neighbours of currentPosition
      ***************************************************************************************/
 
-    private int countAliveNeighbour(Position currentPosition) {
+    private int countAliveNeighbours(Position currentPosition) {
         int neighbour = 0;
         ArrayList<Position> neighbourPositions = this.getNeighbourPositions(currentPosition);
 
         for (Position position : neighbourPositions) {
-            if (isCellAlive(aliveSeedList, position)) {
+            if (isCellAlive(aliveCellList, position)) {
                 neighbour++;
             }
         }
@@ -47,12 +42,9 @@ class GameOfLife {
      * Parameters: Position
      * Returns: ArrayList<Position>
      * Calls: Direction getX(), getY()
-     * Called by: 1. this.countAliveNeighbour()
+     * Called by: 1. this.countAliveNeighbours()
      *            2. this.creationOfLIfe()
-     *
      * ********************************************************************************
-     * Input: position of alive cell
-     * Output ArrayList<Position>
      * This program takes the position of a cell and get the Positions of neighbours
      * It uses enum Direction, and find neighbouring position by adding Directions to current cell position
      Direction(x,y)
@@ -80,12 +72,11 @@ class GameOfLife {
      * Parameters: ArrayList<Position>, Position
      * Returns: boolean
      * Calls: None
-     * Called by: 1. countAliveNeighbour()
+     * Called by: 1. countAliveNeighbours()
      *            2. creationOfLIfe()
      * ********************************************************************************
-     * A cell is alive if it has a alive seed
      * This method take a Position and determined that is it alive or dead
-     * It iterates through list of alive cell, if position is in aliveSeedList,
+     * It iterates through the list of alive cell, if position is in aliveCellList,
      * return true
      * else return false
      *
@@ -105,7 +96,7 @@ class GameOfLife {
     /*********************************************************************************
      * Parameters: None
      * Returns: void
-     * Calls: countAliveNeighbour()
+     * Calls: countAliveNeighbours()
      * Called by: nextStateOfGame()
      *
      * ********************************************************************************
@@ -114,14 +105,14 @@ class GameOfLife {
      * 2. Get numberOfAliveNeighbours
      * 3. If number of neighbours == 2 || 3
      * 4.     add alive seed to next state of game
-     *      --> nextStateAliveSeedList.add(position)
+     *      --> nextStateAliveCellList.add(position)
      */
 
-    private void survivalOfSeed() {
-        for (Position position : aliveSeedList) {
-            int numberOfAliveNeighbours = countAliveNeighbour(position);
+    private void survivalOfCell() {
+        for (Position position : aliveCellList) {
+            int numberOfAliveNeighbours = countAliveNeighbours(position);
             if (numberOfAliveNeighbours == 2 || numberOfAliveNeighbours == 3) {
-                nextStateAliveSeedList.add(position);
+                nextStateAliveCellList.add(position);
             }
         }
     }
@@ -131,14 +122,14 @@ class GameOfLife {
      * Returns: void
      * Calls: 1. this.getNeighbourPositions()
      *        2. isCellAlive()
-     *        3. countAliveNeighbour()
+     *        3. countAliveNeighbours()
      * Called by: this.nextStateOfGame()
      *
      * ********************************************************************************
      * This method iterates through list of alive cell
      * (life can only be created on a cell adjacent to alive cell)
      * 1. For every alive cell
-     * 2.   Find  neighbouring dead cell
+     * 2.   Find neighbouring dead cell
      * 3.       For each neighbouring dead cell
      * 4.             count its alive neighbours
      * 5.                 if alive neighbours == 3
@@ -146,23 +137,22 @@ class GameOfLife {
      **************************************************************************/
     private void creationOfLIfe() {
         ArrayList<Position> neighbourOfAliveCell;
-        for (Position currentAlivePosition : aliveSeedList) {
+        for (Position currentAlivePosition : aliveCellList) {
             neighbourOfAliveCell = getNeighbourPositions(currentAlivePosition);
             for (Position isCellAlive : neighbourOfAliveCell) {
-                if (!isCellAlive(aliveSeedList, isCellAlive)) { // if the cell is dead
-                    int neighbourCount = countAliveNeighbour(isCellAlive);
-                    if (neighbourCount == 3 && (!isCellAlive(nextStateAliveSeedList, isCellAlive))) {
-                        nextStateAliveSeedList.add(isCellAlive);
+                if (!isCellAlive(aliveCellList, isCellAlive)) { // if the cell is dead
+                    int neighbourCount = countAliveNeighbours(isCellAlive);
+                    if (neighbourCount == 3 && (!isCellAlive(nextStateAliveCellList, isCellAlive))) {
+                        nextStateAliveCellList.add(isCellAlive);
                     }
                 }
             }
         }
     }
-
     /********************************************************************
      * Parameters: None
      * Returns: ArrayList<Position>
-     * Calls: 1. this.survivalOfSeed()
+     * Calls: 1. this.survivalOfCell()
      *        2.  this.creationOfLIfe()
      * Called by: Controller getNextStateOfGOL()
      *
@@ -174,13 +164,11 @@ class GameOfLife {
      4. Return alive seed list, ready to be displayed
      /********************************************************************/
     ArrayList<Position> nextStateOfGame() {
-        this.survivalOfSeed();
+        this.survivalOfCell();
         this.creationOfLIfe();
-
-        this.aliveSeedList.clear();
-        this.aliveSeedList.addAll(this.nextStateAliveSeedList);
-        this.nextStateAliveSeedList.clear();
-
-        return aliveSeedList;
+        this.aliveCellList.clear();
+        this.aliveCellList.addAll(this.nextStateAliveCellList);
+        this.nextStateAliveCellList.clear();
+        return aliveCellList;
     }
 }

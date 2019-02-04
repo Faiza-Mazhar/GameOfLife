@@ -24,6 +24,8 @@ Simulate Game of Life
        	Given a game of life
        	When an empty position has exactly three neighbouring cells
        	Then a cell is created in this position
+Assumption:
+    1. When game start, alive cells exist only on 1/3 centred output window.
 
 Pre-requisites:
     JDK 8 -> Use as is
@@ -51,6 +53,7 @@ Built with:
     1. IntelliJ IDEA
     2. JDK 8
     3. JavaFX SceneBuilder 2.0
+
 
 Authors:
     Faiza Mazhar

@@ -20,9 +20,9 @@ public class Main extends Application {
         primaryStage.setTitle("Game of Life by Faiza Mazhar");
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitHint("Press Escape to close window.");
+        primaryStage.setFullScreenExitHint("Press Escape to exit.");
         primaryStage.show();
-        //On pressing escape close the application
+        //On pressing Escape close the application
         primaryStage.addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {
             if (KeyCode.ESCAPE == event.getCode()) {
                 primaryStage.close();

@@ -29,7 +29,7 @@ class GeneratePositions {
      *1. Generate a random position
      *2. If a position is not in list, add position
      *3.      else i--, so that out total number of position stays same
-     *4.      Total number of position should be OutputHeight + Output Length
+     *4.      Total number of position should be OutputHeight + OutputLength
      */
     ArrayList<Position> getPositionArrayList() {
         Random random = new Random();

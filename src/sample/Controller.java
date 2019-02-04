@@ -56,10 +56,10 @@ public class Controller {
      * Called by: None
      * ********************************************************************************
      This method with Populate game
-     1. get co-ordinates of current output window and divide with outputCell size so cell are not overlapping
-     2. get a list of position which occurs in the initial 1/3 centered location of board
-     3. initiate game with the outbounds of output stage
-     4. Enable play button so user can start playing game
+     1. Get co-ordinates of current output window and divide with outputCell size so cell are not overlapping
+     2. Get a list of random position
+     3. Initiate Game of Life
+     4. Enable Play button
      5. Display given state of game
 
      **********************************************************************************/
@@ -92,18 +92,18 @@ public class Controller {
      * 1. Check if cell are growing in -ve axis, and update the positions accordingly
      * 2. For each position in game
      * 3.   Check if position x and y axis are bigger than the outputPane
-     *          if yes --> grow the pane to make space for 20 more cells in respective axis
+     *          if yes -> grow the pane to make space for 20 more cells in respective axis
      * 4. Create a rectangle with desired position and display it.
      ***********************************************************************************/
     private void displayOutput() {
         this.checkNegativeAxis();
         currentGameState.forEach((position) -> {
             if (position.getX() * outputCellSize > outputPane.getPrefWidth()) {
-                outputPane.setPrefWidth(outputPane.getPrefWidth() + 20 * outputCellSize);
+                outputPane.setPrefWidth(outputPane.getPrefWidth() + (20 * outputCellSize));
             }
 
             if (position.getY() * outputCellSize > outputPane.getPrefHeight()) {
-                outputPane.setPrefHeight(outputPane.getPrefHeight() + 20 * outputCellSize);
+                outputPane.setPrefHeight(outputPane.getPrefHeight() + (20 * outputCellSize));
             }
 
             Rectangle rectangle = new Rectangle(
@@ -119,7 +119,7 @@ public class Controller {
     /*******************************************************************************
      * Parameters: None
      * Returns: void
-     * Calls:
+     * Calls: None
      * Called by: displayOutput()
      *
      * ********************************************************************************
@@ -239,15 +239,13 @@ public class Controller {
      *  1. If game is in running state
      2. Pause the game by setting isGameRunning to false
      3. Set appropriate labels on the buttons
-     4. Ig game is paused
-     --> Play Button should have "Resume" label and should be enabled -->user can resume game from
-     the current state
+     4. e.g. game is paused
+     --> Play Button should have "Resume" label and should be enabled
      --> pauseStop Button should have "Stop" label
-
-     5. If game is paused already
-     6.      Stop game by interrupting gameThread, it will stop gameThread
+     5. If game is paused
+     6.      Stop game by interrupting gameThread
      7.      Clear output
-     8. Reset buttons and labels to first state of game
+     8. Reset game
 
      *
      * */
@@ -308,8 +306,9 @@ public class Controller {
      * Called by: populateGame()
      *
      * ********************************************************************************
-     // This method will create max n min ranges to Randomly generate position for first population of game.
-     // 1. Ranges are set that positions are only in the centre 1/3 of the stage*/
+     This method will create max n min ranges to Randomly generate position for first population of game.
+     1. Ranges are set that positions are only in the centre 1/3 of the stage
+     ************************************************************************************/
     private ArrayList<Position> generateRandomList(int maxWidthX, int maxHeightY) {
         int minStartingRangeX = maxWidthX / 3;
         int maxStartingRangeX = (maxWidthX * 2) / 3;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -10,15 +10,12 @@
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
             <children>
-                <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" prefHeight="1000" prefWidth="1000"
+                <ScrollPane hbarPolicy="ALWAYS" prefHeight="1000" prefWidth="1000"
                             vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
                         <Pane fx:id="outputPane" prefHeight="1000.0" prefWidth="2000.0"
                               style="-fx-background-color: #1D0759;">
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-                            </padding>
                         </Pane>
                     </content>
                 </ScrollPane>
@@ -32,9 +29,6 @@
                           AnchorPane.topAnchor="0.0">
                     <columnConstraints>
                         <ColumnConstraints halignment="LEFT" hgrow="ALWAYS"/>
-                        <ColumnConstraints/>
-                        <ColumnConstraints/>
-                        <ColumnConstraints/>
                         <ColumnConstraints/>
                     </columnConstraints>
                     <rowConstraints>
