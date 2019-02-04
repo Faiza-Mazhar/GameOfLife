@@ -52,5 +52,5 @@ Built with:
     2. JDK 8
     3. JavaFX SceneBuilder 2.0
 
-Authors:
+Author:
     Faiza Mazhar
