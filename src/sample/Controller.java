@@ -38,7 +38,6 @@ public class Controller {
     /*
      * This method with initiate the game with variables' initialisation
      * **/
-
     @FXML
     private void initialize() {
         isGameRunning = new AtomicBoolean(false);// game is not running at start
@@ -48,7 +47,6 @@ public class Controller {
         playButton.setDisable(true); // at the start Play button is disables
         pauseStopButton.setDisable(true); // at the start pauseStop button is disables
     }
-
     /*********************************************************************************
      * Parameters: None
      * Returns: void
@@ -62,7 +60,6 @@ public class Controller {
      4. Enable Play button
      5. Display given state of game
      **********************************************************************************/
-
     @FXML
     private void populateGame() {
         int maxWidthX = (int) outputPane.getPrefWidth() / outputCellSize;
@@ -141,7 +138,6 @@ public class Controller {
                 minY = position.getY();
             }
         }
-
         if (minX < 0 || minY < 0) {
             for (Position position : currentGameState) {
                 if (minX < 0)
@@ -221,7 +217,6 @@ public class Controller {
         gameThread.setDaemon(true);
         gameThread.start();
     }
-
     /*****************************************************************
      * Parameters: None
      * Returns: void
@@ -256,7 +251,6 @@ public class Controller {
             this.resetGame();
         }
     }
-
     /*****************************************************************************************
      * Parameters: None
      * Returns: void
@@ -270,7 +264,6 @@ public class Controller {
     private void clearBoard() {
         this.outputPane.getChildren().clear();
     }
-
     /*****************************************************************************************
      * Parameters: None
      * Returns: void
@@ -291,7 +284,6 @@ public class Controller {
         outputPane.setPrefWidth(2000);
         outputPane.setPrefHeight(1000);
     }
-
     /*****************************************************************************************
      * Parameters: int, int
      * Returns: ArrayList<Position></Position>
